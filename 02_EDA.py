@@ -64,7 +64,7 @@ df_agrupado = df.groupby('year').agg({
     'title': 'count'
 }).reset_index().rename(columns={'title': 'contagem'})
 
-# 1. Filtrar para anos recentes (ex: após 1994) e ordenar
+# 1. Filtrar para anos recentes
 df_recente = df_agrupado[df_agrupado['year'] >= 1990].sort_values('year')
 
 fig, ax1 = plt.subplots(figsize=(14, 7))

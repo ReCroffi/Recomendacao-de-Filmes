@@ -22,7 +22,7 @@ tfidf_matrix = tfidf.fit_transform(df['overview'])
 #formato da matriz
 print(tfidf_matrix.shape)
 # %%
-# Calcular a matriz de similaridade (isso pode demorar se o dataset for gigante)
+# Calcular a matriz de similaridade 
 cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
 # %%
 
