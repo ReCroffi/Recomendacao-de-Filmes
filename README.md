@@ -1,58 +1,55 @@
-# 🎬 Movie Recommendation System - NLP & Machine Learning
+# 🎬 Sistema de Recomendação de Filmes — NLP & Machine Learning
 
-Este projeto é um sistema de recomendação de filmes interativo que utiliza técnicas de Processamento de Linguagem Natural (NLP) para sugerir títulos com base na similaridade de conteúdo (sinopses). O sistema foi construído de ponta a ponta: desde a coleta e limpeza dos dados até o deploy de uma interface web.
+Sistema interativo que recomenda filmes por **similaridade de conteúdo** (sinopses),
+usando NLP. Construído de ponta a ponta: coleta via API → limpeza → modelo → app web.
 
-![Streamlit App](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Scikit-Learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
 
 ## 🚀 Funcionalidades
-- **Motor de Recomendação:** Utiliza `TfidfVectorizer` e `Similaridade de Cosseno` para encontrar filmes semanticamente próximos.
-- **Análise de Dados (EDA):** Gráficos avançados que mostram a relação entre volume de lançamentos e notas médias ao longo dos anos.
-- **Interface Web:** App interativo construído com Streamlit para uma experiência de usuário fluida.
-- **Posters e Notas em Tempo Real:** Integração com a API do TMDB para exibir posters e avaliações atualizadas diretamente na interface.
+- **Motor de recomendação:** `TfidfVectorizer` + **similaridade de cosseno** para achar os 5 filmes mais próximos da sinopse escolhida.
+- **EDA:** relação entre volume de lançamentos e notas médias ao longo dos anos.
+- **Interface web:** app em Streamlit.
+- **Pôsteres e notas em tempo real:** integração com a API do TMDB.
 
-## 📊 Insights e Desafios Técnicos
-Durante o desenvolvimento, foram aplicadas soluções para desafios reais de Engenharia de Dados:
-- **Tratamento de Strings Complexas:** Uso da biblioteca `ast` para converter representações textuais de listas em objetos Python reais.
-- **Manipulação de Dados:** Uso do método `explode` do Pandas para normalizar gêneros e permitir análises estatísticas por categoria.
-- **Segurança de Dados:** Implementação de variáveis de ambiente (`.env`) para proteção de chaves de API sensíveis.
+## 🧩 Decisões técnicas
+- **Parsing de strings:** `ast` para converter listas em texto (ex.: gêneros) em objetos Python.
+- **Normalização:** `explode` do Pandas para análise por gênero.
+- **Stopwords PT-BR:** NLTK para limpar o texto antes do TF-IDF.
+- **Segurança:** chave da API em `.env` (fora do versionamento).
 
-## 🛠️ Tecnologias Utilizadas
-- **Linguagem:** Python 3.x
-- **Manipulação de Dados:** Pandas, NumPy
-- **Visualização:** Seaborn, Matplotlib
-- **NLP:** Scikit-Learn (TF-IDF), NLTK (Stopwords em Português)
-- **Interface e API:** Streamlit, Requests
+## 🛠️ Stack
+Python · Pandas · NumPy · scikit-learn (TF-IDF) · NLTK · Streamlit · TMDB API
 
-## 🔧 Como rodar o projeto localmente
+## 📦 Dados
+Filmes coletados da **API do TMDB** (`01_extração_api.py`) e salvos em
+`filmes_populares.csv` / `filmes_populares_clean.csv`.
 
-1. **Clone o repositório:**
+## ▶️ Como rodar
 ```bash
-git clone [https://github.com/seu-usuario/nome-do-repositorio.git](https://github.com/seu-usuario/nome-do-repositorio.git)
-```
-
-2. **Instale as dependências:**
-
-```bash
+git clone git@github.com:ReCroffi/Recomendacao-de-Filmes.git
+cd Recomendacao-de-Filmes
 pip install -r requirements.txt
-```
-3. **Configure sua API Key: Crie um arquivo .env na raiz do projeto:**
-
-
-```bash
-TMDB_API_KEY=sua_chave_aqui
-``` 
-    
-4. **Execute o App:**
-
-```bash
-
+echo "TMDB_API_KEY=sua_chave_aqui" > .env
 streamlit run app.py
 ```
-📈 **Resultados do Modelo**
 
-O modelo consegue identificar padrões em sinopses de gêneros distintos, oferecendo recomendações precisas através de álgebra linear aplicada a texto. Ao selecionar um filme, o sistema calcula o peso das palavras-chave (TF-IDF) e sugere os 5 títulos com maior proximidade vetorial.
+## 🗂️ Estrutura
+```
+Recomendacao-de-Filmes/
+├── 01_extração_api.py   # coleta dos dados (TMDB)
+├── 02_EDA.py            # análise exploratória
+├── 03_modelo.py         # TF-IDF + similaridade de cosseno
+├── app.py               # interface Streamlit
+└── requirements.txt
+```
 
-Desenvolvido por Renan Croffi - www.linkedin.com/in/renancroffi
-e Raquel Duarte - https://www.linkedin.com/in/raquel-duarte-1a2747397/
+## ⚠️ Limitações e próximos passos
+- Recomendação **só por conteúdo** (sinopse) — não usa avaliações de usuários,
+  então sofre de "cold start" inverso (não aprende preferências individuais).
+- Próximo: **filtragem colaborativa** para um sistema híbrido (conteúdo + comportamento).
+
+---
+Desenvolvido por **Renan Croffi** ([LinkedIn](https://www.linkedin.com/in/renancroffi/))
+e **Raquel Duarte** ([LinkedIn](https://www.linkedin.com/in/raquel-duarte-1a2747397/)).
