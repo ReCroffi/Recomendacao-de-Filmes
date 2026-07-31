@@ -6,8 +6,12 @@ import nltk
 from nltk.corpus import stopwords
 
 #%% 
-nltk.download('stopwords')
-palavras_irrelevantes = nltk.corpus.stopwords.words('portuguese')
+#só baixa se ainda não estiver em cache
+try:
+    palavras_irrelevantes = nltk.corpus.stopwords.words('portuguese')
+except LookupError:
+    nltk.download('stopwords')
+    palavras_irrelevantes = nltk.corpus.stopwords.words('portuguese')
 
 df = pd.read_csv('filmes_populares_clean.csv')
 

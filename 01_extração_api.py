@@ -42,6 +42,10 @@ df.to_csv('filmes_populares.csv', index=False)
 df = df.dropna(subset=['overview'])
 df = df[df['overview'] != ""]
 # %%
+# a paginação da API pode devolver o mesmo filme em páginas diferentes.
+# sem esse dedup o filme entra duas vezes na matriz e o modelo o recomenda
+# como similar a ele mesmo (cosseno = 1.0)
+df = df.drop_duplicates(subset='id', keep='first')
 # %%
 df['release_date'] = pd.to_datetime(df['release_date'], errors= 'coerce')
 df=df.dropna(subset=['release_date'])
